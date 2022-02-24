@@ -80,6 +80,13 @@ public class MovieFacadeTest {
         String actual = facade.getMovieById(mv1.getId()).getTitle();
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void getMovieByTitle(){
+        String expected = mv1.getTitle();
+        String actual = facade.getMovieByTitle("yo").getTitle();
+        assertEquals(expected, actual);
+    }
     
 
 }

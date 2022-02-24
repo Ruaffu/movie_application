@@ -90,4 +90,17 @@ public class MovieFacade {
         movieFacade.getAllMovies().forEach(dto->System.out.println(dto));
     }
 
+    public MovieDTO getMovieByTitle(String title) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Movie> query = em.createNamedQuery("Movie.getByTitle", Movie.class);
+            query.setParameter("title", title);
+            Movie movie = query.getSingleResult();
+            MovieDTO movieDTO = new MovieDTO(movie);
+            return movieDTO;
+
+        }finally {
+            em.close();
+        }
+    }
 }

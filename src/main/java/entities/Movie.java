@@ -8,7 +8,7 @@ import javax.persistence.*;
 @NamedQueries({
 @NamedQuery(name = "Movie.deleteAllRows", query = "DELETE from Movie"),
 @NamedQuery(name = "Movie.getAll", query = "select m from Movie m"),
-@NamedQuery(name = "Movie.getByTitle", query = "select m from Movie m where m.title like :title")})
+@NamedQuery(name = "Movie.getByTitle", query = "select m from Movie m where m.title =:title")})
 public class Movie implements Serializable {
 
     private static final long serialVersionUID = 1L;

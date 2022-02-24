@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 //Todo Remove or change relevant parts before ACTUAL use
-@Path("xxx")
+@Path("movie")
 public class MovieResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
@@ -29,18 +29,9 @@ public class MovieResource {
         return "{\"msg\":\"Hello World\"}";
     }
 
-    @Path("count")
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public String getRenameMeCount() {
-       
-        long count = FACADE.getRenameMeCount();
-        //System.out.println("--------------->"+count);
-        return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
-    }
 
     @GET
-    @Path("/movies")
+    @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllMovies(){
         List<MovieDTO> movies = FACADE.getAllMovies();

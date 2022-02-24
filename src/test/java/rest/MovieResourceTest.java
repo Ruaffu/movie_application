@@ -84,7 +84,7 @@ public class MovieResourceTest {
     @Test
     public void testServerIsUp() {
         System.out.println("Testing is server UP");
-        given().when().get("/xxx").then().statusCode(200);
+        given().when().get("/movie").then().statusCode(200);
     }
 
     //This test assumes the database contains two rows
@@ -93,7 +93,7 @@ public class MovieResourceTest {
                 given()
                 .contentType("application/json")
                 .when()
-                .get("/xxx/movies")
+                .get("/movie/all")
                 .then().statusCode(200);
 
     }
@@ -103,7 +103,7 @@ public class MovieResourceTest {
         given()
                 .contentType("application/json")
                 .when()
-                .get("/xxx/movies")
+                .get("/movie/all")
                 .then().log().body().statusCode(200);
 
     }
@@ -111,7 +111,7 @@ public class MovieResourceTest {
     @Test
     public void getMovieById(){
         given().contentType("application/json").when()
-                .get("/xxx/{id}", r1.getId())
+                .get("/movie/{id}", r1.getId())
                 .then()
                 .assertThat()
                 .statusCode(200).log()
@@ -119,15 +119,6 @@ public class MovieResourceTest {
 
     }
 
-    @Test
-    public void testCount() throws Exception {
-        given()
-                .contentType("application/json")
-                .get("/xxx/count").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("count", equalTo(2));
-    }
 
 
 }
