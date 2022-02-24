@@ -115,8 +115,7 @@ public class MovieResourceTest {
                 .statusCode(200)
                 .body("id", equalTo(new Long(movie1.getId()).intValue()))
                 .body("year", equalTo(movie1.getYear()))
-                .body("title", equalTo(movie1.getTitle()))
-                .body("director", equalTo(movie1.getDirector()));
+                .body("title", equalTo(movie1.getTitle()));
 
     }
 
