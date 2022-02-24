@@ -109,6 +109,11 @@ public class MovieResourceTest {
     }
 
     @Test
+    public void getMovieById(){
+
+    }
+
+    @Test
     public void testCount() throws Exception {
         given()
                 .contentType("application/json")
