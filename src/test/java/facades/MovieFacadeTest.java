@@ -43,7 +43,7 @@ public class MovieFacadeTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
             em.persist(new Movie(1945,"yo",new String[]{"larry","curly","moe","leon"}));
             em.persist(new Movie(1946,"yoyo",new String[]{"larry","curly","moe","leon"}));
 //            em.persist(new Movie("aaa", "bbb"));
