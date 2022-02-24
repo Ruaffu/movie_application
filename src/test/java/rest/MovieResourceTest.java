@@ -110,6 +110,12 @@ public class MovieResourceTest {
 
     @Test
     public void getMovieById(){
+        given().contentType("application/json").when()
+                .get("/xxx/{id}", r1.getId())
+                .then()
+                .assertThat()
+                .statusCode(200).log()
+                .body();
 
     }
 

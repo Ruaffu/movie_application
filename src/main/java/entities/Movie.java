@@ -13,6 +13,7 @@ public class Movie implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int year;
