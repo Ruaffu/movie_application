@@ -10,12 +10,10 @@ import static org.hamcrest.Matchers.*;
 
 import io.restassured.parsing.Parser;
 import java.net.URI;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
 import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
@@ -30,7 +28,7 @@ public class MovieResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
-    private static Movie r1, r2;
+    private static Movie movie1, movie2;
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
@@ -68,13 +66,13 @@ public class MovieResourceTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
-        r1 = new Movie(1945,"yo",new String[]{"larry","curly","moe","leon"});
-        r2 = new Movie(1946,"yoyo",new String[]{"larry","curly","moe","leon"});
+        movie1 =  new Movie(1992,"The last of the Mohicans", "Michael Mann", new String[]{"Daniel Day-Lewis","Madeleine Stowe","Russell Means","Eric Schweig"});
+        movie2 =  new Movie(1985,"The Goonies", "Richard Donner", new String[]{"Sean Astin","Josh Brolin","Jeff Cohen","Corey Feldman"});
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
-            em.persist(r1);
-            em.persist(r2);
+            em.persist(movie1);
+            em.persist(movie2);
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -110,13 +108,26 @@ public class MovieResourceTest {
 
     @Test
     public void getMovieById(){
-        given().contentType("application/json").when()
-                .get("/movie/{id}", r1.getId())
+        given().contentType("application/json")
+                .get("/movie/{id}", movie1.getId())
                 .then()
                 .assertThat()
-                .statusCode(200).log()
-                .body();
+                .statusCode(200)
+                .body("id", equalTo(new Long(movie1.getId()).intValue()))
+                .body("year", equalTo(movie1.getYear()))
+                .body("title", equalTo(movie1.getTitle()))
+                .body("director", equalTo(movie1.getDirector()));
 
+    }
+
+    @Test
+    public void testGetMovieByTitle(){
+        given().contentType("application/json").when()
+                .get("/movie/title/{title}", movie1.getTitle())
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .body("title", equalTo(movie1.getTitle()));
     }
 
 

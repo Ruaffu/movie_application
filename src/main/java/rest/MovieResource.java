@@ -46,4 +46,13 @@ public class MovieResource {
         MovieDTO movieDTO = FACADE.getMovieById(id);
         return Response.ok().entity(GSON.toJson(movieDTO)).build();
     }
+
+    @GET
+    @Path("/title/{title}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getMovieByTitle(@PathParam("title")String title){
+        MovieDTO movieDTO = FACADE.getMovieByTitle(title);
+        return Response.ok().entity(GSON.toJson(movieDTO)).build();
+
+    }
 }

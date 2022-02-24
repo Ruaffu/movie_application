@@ -44,7 +44,7 @@ public class MovieFacade {
     }
 
     public MovieDTO createMovie(MovieDTO movieDTO){
-        Movie movie = new Movie(movieDTO.getYear(),movieDTO.getTitle(), movieDTO.getActors());
+        Movie movie = new Movie(movieDTO.getYear(),movieDTO.getTitle(),movieDTO.getDirector(), movieDTO.getActors());
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
@@ -72,23 +72,6 @@ public class MovieFacade {
         return new MovieDTO(movie);
     }
 
-    //TODO Remove/Change this before use
-    public long getRenameMeCount(){
-        EntityManager em = getEntityManager();
-        try{
-            long renameMeCount = (long)em.createQuery("SELECT COUNT(r) FROM Movie r").getSingleResult();
-            return renameMeCount;
-        }finally{
-            em.close();
-        }
-    }
-
-    
-    public static void main(String[] args) {
-        emf = EMF_Creator.createEntityManagerFactory();
-        MovieFacade movieFacade = getFacadeExample(emf);
-        movieFacade.getAllMovies().forEach(dto->System.out.println(dto));
-    }
 
     public MovieDTO getMovieByTitle(String title) {
         EntityManager em = getEntityManager();
@@ -103,4 +86,12 @@ public class MovieFacade {
             em.close();
         }
     }
+
+    
+    public static void main(String[] args) {
+        emf = EMF_Creator.createEntityManagerFactory();
+        MovieFacade movieFacade = getFacadeExample(emf);
+        movieFacade.getAllMovies().forEach(dto->System.out.println(dto));
+    }
+
 }

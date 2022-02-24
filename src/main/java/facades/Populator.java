@@ -18,10 +18,10 @@ import utils.EMF_Creator;
 public class Populator {
     public static void populate(){
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-        MovieFacade fe = MovieFacade.getFacadeExample(emf);
-        fe.createMovie(new MovieDTO(new Movie(1992,"The last of the Mohicans",new String[]{"Daniel Day-Lewis","Madeleine Stowe","Russell Means","Eric Schweig"})));
-        fe.createMovie(new MovieDTO(new Movie(1985,"The Goonies",new String[]{"Sean Astin","Josh Brolin","Jeff Cohen","Corey Feldman"})));
-        fe.createMovie(new MovieDTO(new Movie(1991,"Hook",new String[]{"Dustin Hoffman","Robin Williams","Julia Roberts","Bob Hoskins"})));
+        MovieFacade mf = MovieFacade.getFacadeExample(emf);
+        mf.createMovie(new MovieDTO(1992,"The last of the Mohicans", "Michael Mann", new String[]{"Daniel Day-Lewis","Madeleine Stowe","Russell Means","Eric Schweig"}));
+        mf.createMovie(new MovieDTO(1985,"The Goonies", "Richard Donner", new String[]{"Sean Astin","Josh Brolin","Jeff Cohen","Corey Feldman"}));
+        mf.createMovie(new MovieDTO(1991,"Hook", "Steven Spielberg", new String[]{"Dustin Hoffman","Robin Williams","Julia Roberts","Bob Hoskins"}));
     }
     
     public static void main(String[] args) {

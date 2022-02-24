@@ -45,8 +45,8 @@ public class MovieFacadeTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
-            mv1 = new Movie(1945,"yo",new String[]{"larry","curly","moe","leon"});
-            mv2 = new Movie(1946,"yoyo",new String[]{"larry","curly","moe","leon"});
+            mv1 = new Movie(1992,"The last of the Mohicans", "Michael Mann", new String[]{"Daniel Day-Lewis","Madeleine Stowe","Russell Means","Eric Schweig"});
+            mv2 = new Movie(1985,"The Goonies", "Richard Donner", new String[]{"Sean Astin","Josh Brolin","Jeff Cohen","Corey Feldman"});
             em.persist(mv1);
             em.persist(mv2);
 
@@ -61,11 +61,6 @@ public class MovieFacadeTest {
 //        Remove any data after each test was run
     }
 
-    // TODO: Delete or change this method 
-    @Test
-    public void testAFacadeMethod() throws Exception {
-        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
-    }
 
     @Test
     public void testGetAllMovies(){
@@ -84,7 +79,7 @@ public class MovieFacadeTest {
     @Test
     public void getMovieByTitle(){
         String expected = mv1.getTitle();
-        String actual = facade.getMovieByTitle("yo").getTitle();
+        String actual = facade.getMovieByTitle(mv1.getTitle()).getTitle();
         assertEquals(expected, actual);
     }
     
