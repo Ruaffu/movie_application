@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @NamedQueries({
-@NamedQuery(name = "RenameMe.deleteAllRows", query = "DELETE from Movie"),
+@NamedQuery(name = "Movie.deleteAllRows", query = "DELETE from Movie"),
 @NamedQuery(name = "Movie.getAll", query = "select m from Movie m"),
 @NamedQuery(name = "Movie.getByTitle", query = "select m from Movie m where m.title like :title")})
 public class Movie implements Serializable {

@@ -1,11 +1,16 @@
 package rest;
 
+import dtos.MovieDTO;
 import entities.Movie;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
 import io.restassured.parsing.Parser;
 import java.net.URI;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
@@ -13,7 +18,7 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
-import static org.hamcrest.Matchers.equalTo;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -64,10 +69,10 @@ public class MovieResourceTest {
     public void setUp() {
         EntityManager em = emf.createEntityManager();
         r1 = new Movie(1945,"yo",new String[]{"larry","curly","moe","leon"});
-        r2 = new Movie(1945,"yo",new String[]{"larry","curly","moe","leon"});
+        r2 = new Movie(1946,"yoyo",new String[]{"larry","curly","moe","leon"});
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
             em.persist(r1);
             em.persist(r2);
             em.getTransaction().commit();
@@ -84,13 +89,23 @@ public class MovieResourceTest {
 
     //This test assumes the database contains two rows
     @Test
-    public void testDummyMsg() throws Exception {
+    public void testGetAllMoviesStatusCode() {
+                given()
+                .contentType("application/json")
+                .when()
+                .get("/xxx/movies")
+                .then().statusCode(200);
+
+    }
+
+    @Test
+    public void testGetAllMoviesLog() {
         given()
                 .contentType("application/json")
-                .get("/xxx/").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("msg", equalTo("Hello World"));
+                .when()
+                .get("/xxx/movies")
+                .then().log().body().statusCode(200);
+
     }
 
     @Test
@@ -102,4 +117,6 @@ public class MovieResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("count", equalTo(2));
     }
+
+
 }
