@@ -21,6 +21,7 @@ public class MovieFacadeTest {
 
     private static EntityManagerFactory emf;
     private static MovieFacade facade;
+    Movie mv1, mv2;
 
     public MovieFacadeTest() {
     }
@@ -44,9 +45,10 @@ public class MovieFacadeTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Movie.deleteAllRows").executeUpdate();
-            em.persist(new Movie(1945,"yo",new String[]{"larry","curly","moe","leon"}));
-            em.persist(new Movie(1946,"yoyo",new String[]{"larry","curly","moe","leon"}));
-//            em.persist(new Movie("aaa", "bbb"));
+            mv1 = new Movie(1945,"yo",new String[]{"larry","curly","moe","leon"});
+            mv2 = new Movie(1946,"yoyo",new String[]{"larry","curly","moe","leon"});
+            em.persist(mv1);
+            em.persist(mv2);
 
             em.getTransaction().commit();
         } finally {
@@ -74,8 +76,8 @@ public class MovieFacadeTest {
 
     @Test
     public void testGetMovieById(){
-        String expected = "yo";
-        String actual = facade.getMovieById(1).getTitle();
+        String expected = mv1.getTitle();
+        String actual = facade.getMovieById(mv1.getId()).getTitle();
         assertEquals(expected, actual);
     }
     
